@@ -17,7 +17,7 @@ def product_list(request):
 
 
 def product_detail(request , slug):
-    # prodcut_detail = Product.objects.get(PRDSLug=slug)
+    #prodcut_detail = Product.objects.get(id=id)
     prodcut_detail = get_object_or_404(Product ,PRDSLug=slug )
     context = {'prodcut_detail' : prodcut_detail}
     return render(request , 'Product/product_detail.html' , context)    

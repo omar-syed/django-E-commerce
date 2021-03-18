@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
+from django.urls import reverse
 
 # Create your models here.
 class Product(models.Model):
@@ -10,16 +12,32 @@ class Product(models.Model):
     PRDDesc = models.TextField(verbose_name=_("Description"))
     PRDImage = models.ImageField(upload_to='prodcut/' , verbose_name=_("Image") , blank=True, null=True)
     PRDPrice = models.DecimalField(max_digits=5  , decimal_places=2 , verbose_name=_("Price"))
+    PRDDiscountPrice = models.DecimalField(max_digits=5  , decimal_places=2 , verbose_name=_("Discount Price"),blank=True, null=True)
     PRDCost = models.DecimalField(max_digits=5 , decimal_places=2 , verbose_name=_("Cost"))
     PRDCreated = models.DateTimeField(verbose_name=_("Created At"))
+
+
+    PRDSLug = models.SlugField(blank=True, null=True , verbose_name=_("Product URL"))
+    PRDISNew = models.BooleanField(default=True , verbose_name=_("New Product "))
+    PRDISBestSeller = models.BooleanField(default=False , verbose_name=_("Best Seller"))
+
+
+    def save(self , *args , **kwargs):
+        if not self.PRDSLug :
+            self.PRDSLug = slugify(self.PRDName)
+        super(Product , self).save(*args , **kwargs)
+
+    class Meta:
+        verbose_name = _("Product")
+        verbose_name_plural = _("Products")      
     
+    def get_absolute_url(self):
+        return reverse('products:product_detail', kwargs={'slug': self.PRDSLug})
 
     def __str__(self):
         return self.PRDName
 
-    class Meta:
-        verbose_name = _("Product")
-        verbose_name_plural = _("Products")    
+      
     
 
 
