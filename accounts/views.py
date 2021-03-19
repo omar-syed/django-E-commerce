@@ -26,3 +26,8 @@ def signup(request):
     return render(request , 'registration/signup.html' , context)
 
 
+@login_required(login_url='/accounts/login/')
+def profile(request , slug):
+    profile = get_object_or_404(Profile , slug=slug)
+    context = {'profile' : profile}
+    return render(request , 'profile.html' , context)
