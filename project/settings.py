@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
 
     'product',
     'settings',
+    'django_countries',
+    
 ]
 
 MIDDLEWARE = [
@@ -132,5 +136,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 
 
 
-#LOGIN_REDIRECT_URL = '/products'
-#LOGOUT_REDIRECT_URL = '/products'
+LOGIN_REDIRECT_URL = '/products'
+LOGOUT_REDIRECT_URL = '/products'
