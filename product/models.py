@@ -57,6 +57,12 @@ class Category(models.Model):
     CATParent = models.ForeignKey('self' ,limit_choices_to={'CATParent__isnull' : True}, verbose_name=_("Main Category"), on_delete=models.CASCADE , blank=True, null=True)
     CATDesc = models.TextField( verbose_name=_("Description"))
     CATImg = models.ImageField(upload_to='category/' , verbose_name=_("Image"))
+    CATSlug = models.SlugField(null=True,blank=True,verbose_name=_('Slug'))
+
+    def save(self,*args,**kwargs):
+        if not self.CATSlug :
+            self.CATSlug = slugify(self.CATName)
+        super(Category,self).save(*args,**kwargs)
 
     class Meta:
         verbose_name = _("Category")

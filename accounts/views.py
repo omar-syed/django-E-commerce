@@ -31,3 +31,30 @@ def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
     context = {'profile' : profile}
     return render(request , 'profile.html' , context)
+
+
+@login_required(login_url='login')
+def edit_profile(request,slug):
+    
+    my_profile   = Profile.objects.get(user=request.user)
+    user_form    =  UserForm(instance=request.user)
+    profile_form =  ProfileForm(instance=my_profile)
+
+    if request.method == 'POST':
+
+           user_form     =  UserForm(request.POST,instance=request.user)
+           profile_form  =  ProfileForm(request.POST,request.FILES,instance=my_profile)
+
+           if user_form.is_valid() and profile_form.is_valid():
+               user_form.save()
+               new_profile_form = profile_form.save(commit=False)
+               new_profile_form.user = request.user
+               new_profile_form.save()
+               return redirect('accounts:profile',slug=slug)
+    
+           else :
+                user_form    =  UserForm(request.POST,instance=request.user)
+                profile_form =   ProfileForm(request.POST,request.FILES,instance=my_profile)
+
+    context = {'user_form':user_form,'profile_form':profile_form}
+    return render(request,'edit_profile.html',context)    

@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 import datetime
 from django_countries.fields import CountryField
 from django.utils.text import slugify
-
+from django.urls import reverse
 from django.db.models.signals import post_save
 # Create your models here.
 
@@ -30,7 +30,7 @@ class Profile(models.Model):
         return  '%s' %(self.user)
 
     def get_absolute_url(self):
-        return reverse("accounts:Profile_detail", kwargs={"slug": self.slug})
+        return reverse("accounts:edit_profile", kwargs={"slug": self.slug})
 
 
 

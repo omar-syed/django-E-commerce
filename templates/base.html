@@ -54,7 +54,7 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand waves-effect" href="/" >
+      <a class="navbar-brand waves-effect" href="{% url 'products:product_list'%}" >
         <strong class="blue-text">SOUQ</strong>
       </a>
 
@@ -70,7 +70,7 @@
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link waves-effect" href="#">Home
+            <a class="nav-link waves-effect" href="{% url 'products:product_list'%}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -94,12 +94,13 @@
                     <i class="fas fa-user-circle"></i>Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href=""> My Profile</a>
-                  <a class="dropdown-item" href="#">Edit My Profile</a>
-                  <a class="dropdown-item" href="#">Change Password</a>
+                  <a class="dropdown-item" href="{% url 'accounts:profile' user.profile.slug %}"> My Profile</a>
+                  <a class="dropdown-item" href="{{user.profile.get_absolute_url}}">Edit My Profile</a>
+                  <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">My Orders</a>
                   <a class="dropdown-item" href="#">Track Order</a>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                 </div>
               </li>
           {% else %}

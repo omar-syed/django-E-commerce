@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'product',
     'settings',
     'django_countries',
+    'bootstrap4',
     
 ]
 
@@ -138,3 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 
 LOGIN_REDIRECT_URL = '/products'
 LOGOUT_REDIRECT_URL = '/products'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend' ,
+]
