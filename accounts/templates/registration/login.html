@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 {% block body %}
 <main class="mt-5">
@@ -35,6 +37,19 @@
 
         {# Assumes you setup the password_reset view in your URLconf #}
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        <ul>
+            <li class="facebook">
+            <a href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a>
+            
+            </li>
+            <li class="facebook">
+            <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook Connect</a>
+            </li>
+        </ul>
     </div>
+    <div class="social">
+
+</div>
 </main>
+
 {% endblock body %}

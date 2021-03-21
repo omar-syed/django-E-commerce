@@ -23,6 +23,9 @@ urlpatterns = [
     path('products/', include('product.urls' , namespace='products')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls' , namespace='accounts')),
+    path('social-auth/',include('social_django.urls', namespace='social')),
+    path('accounts/', include('allauth.urls')),
+
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
