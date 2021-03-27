@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django_countries',
     'bootstrap4',
 
+    'cart',
+
     'social_django',
     'django_extensions',
     
@@ -154,6 +156,8 @@ AUTHENTICATION_BACKENDS = [
 
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+
+    'social_core.backends.google.GoogleOAuth2',
 ]
 
 SOCIAL_AUTH_FACEBOOK_KEY = '484993502636674' # Facebook App ID
@@ -162,3 +166,11 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '1ccc4373b479c0faff1803e61f19cb4e' # Facebook App 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SITE_ID=1
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '940284314103-nm0833e6b6nh66oool3tmqjifcv4fath.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'VK7cBs6O3y5gt5Kx90iJSCI6' # Google Consumer Secret
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+CART_SESSION_ID = 'cart'

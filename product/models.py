@@ -21,6 +21,9 @@ class Product(models.Model):
     PRDISNew = models.BooleanField(default=True , verbose_name=_("New Product "))
     PRDISBestSeller = models.BooleanField(default=False , verbose_name=_("Best Seller"))
 
+    PRDAvailable = models.BooleanField(default=True,verbose_name=_("available"))
+    PRDUpdated = models.DateTimeField(auto_now=True,verbose_name=_("updated"))
+
 
     def save(self , *args , **kwargs):
         if not self.PRDSLug :
@@ -63,6 +66,9 @@ class Category(models.Model):
         if not self.CATSlug :
             self.CATSlug = slugify(self.CATName)
         super(Category,self).save(*args,**kwargs)
+
+    def get_absolute_url(self):
+        return reverse('products:category_list',args=[self.CATSlug])    
 
     class Meta:
         verbose_name = _("Category")

@@ -10,6 +10,7 @@ def product_list(request,category_slug=None):
     category = None
 
     product_list = Product.objects.all()
+    products = Product.objects.filter(PRDAvailable=True)
     category_list = Category.objects.annotate(total_products=Count('product')).exclude(CATParent__isnull=True)
 
 #################################################################################
@@ -30,7 +31,7 @@ def product_list(request,category_slug=None):
 
 #################################################################################
     
-    paginator = Paginator(product_list, 1) 
+    paginator = Paginator(product_list, 3) 
     page = request.GET.get('page')
     product_list = paginator.get_page(page)
 
@@ -40,6 +41,6 @@ def product_list(request,category_slug=None):
 
 def product_detail(request , slug):
     #prodcut_detail = Product.objects.get(id=id)
-    prodcut_detail = get_object_or_404(Product ,PRDSLug=slug )
+    prodcut_detail = get_object_or_404(Product ,PRDSLug=slug ,PRDAvailable=True)
     context = {'prodcut_detail' : prodcut_detail}
     return render(request , 'Product/product_detail.html' , context)    

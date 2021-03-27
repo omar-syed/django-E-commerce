@@ -18,7 +18,7 @@
             {% endif %}
         {% endif %}
 
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'login' %}" class="col-sm-4" style="margin:auto; margin-bottom:54px; margin-top: 150px;">
         {% csrf_token %}
         <table>
         <tr>
@@ -38,10 +38,18 @@
         {# Assumes you setup the password_reset view in your URLconf #}
         <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
         <ul>
-            <li class="facebook">
-            <a href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a>
+            <li class="btn btn-primary facebook" style="border-radius: 10px;">
+            <a style="color: white;" href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a>
             
             </li>
+            
+            <br>
+
+            <li class="btn btn-danger google" style="border-radius: 10px;">
+            <a style="color: white;" href="{% url "social:begin" "google-oauth2" %}">Login with
+            Google</a>
+            </li>
+
             <li class="facebook">
             <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook Connect</a>
             </li>
