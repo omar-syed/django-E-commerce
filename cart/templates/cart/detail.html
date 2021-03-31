@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block body %}
+        
+    <h1 style="margin-top: 80px;">Your shopping cart</h1>
+    <table class="cart">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+                <th>Unit price</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart  %}
+                {% with product=item.product  %}
+                    <tr>
+                        <td>   
+                            <a href="{{product.get_absolute_url}}">
+                                <img style="height: 100px;" src="{% if product.PRDImage %} {{product.PRDImage.url}}
+                                {% else %}
+                                    {% static 'site_static/img/default.png' %}
+                                {% endif%}">
+                            </a> 
+                        </td>
+                        <td>{{ product.PRDName }}</td>
+                        <td>{{ item.quantity }}</td>
+                        
+                        <td>
+                            <form method="POST" action="{% url 'cart:cart_remove' product.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger"> remove </button>
+                            </form>
+                        </td>
+
+                        <td class="num">${{ item.price }}</td>
+                        <td class="num">${{ item.total_price }}</td>
+                        
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+
+                <tr class="total">
+                    <td>Total</td>
+                    <td colspan="4"></td>
+                    <td class="num">${{cart.get_total_price}}</td>
+                </tr>
+
+        </tbody>
+        </table>
+
+            <p class="text-right">
+                <a href="{% url 'products:product_list' %}"  style="border-radius: 10px;" class="btn btn-primary">Continue shopping</a>
+                <a href="#"  style="border-radius: 10px;" class="btn btn-success">Checkout</a>
+            </p>
+       
+{% endblock body %} 

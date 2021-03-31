@@ -2,6 +2,7 @@ from django.shortcuts import render , get_object_or_404
 from .models import Product,Category
 from django.core.paginator import Paginator
 from django.db.models import Q , Count
+from cart.forms import CartAddProductForm
 
 
 # Create your views here.
@@ -42,5 +43,7 @@ def product_list(request,category_slug=None):
 def product_detail(request , slug):
     #prodcut_detail = Product.objects.get(id=id)
     prodcut_detail = get_object_or_404(Product ,PRDSLug=slug ,PRDAvailable=True)
-    context = {'prodcut_detail' : prodcut_detail}
+    cart_product_form = CartAddProductForm()
+    context = {'prodcut_detail' : prodcut_detail,'cart_product_form': cart_product_form}
+    
     return render(request , 'Product/product_detail.html' , context)    
